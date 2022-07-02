@@ -3,7 +3,7 @@ package calculator
 class Calculator {
     fun calculate(input: String): Int {
         val numbers = extractNumbers(input)
-        return numbers.sumOf { it.toInt() }
+        return doAddition(numbers)
     }
 
     private fun extractNumbers(input: String): List<String> {
@@ -22,6 +22,14 @@ class Calculator {
 
     private fun extractDefaultCase(input: String): List<String> {
         return input.split(DEFAULT_DELIMITERS).map { it.trim() }
+    }
+
+    private fun doAddition(numbers: List<String>): Int {
+        try {
+            return numbers.sumOf { it.toInt() }
+        } catch (e: NumberFormatException) {
+            throw RuntimeException("숫자 이외의 값 또는 음수는 입력하실 수 없습니다.")
+        }
     }
 
     companion object {
