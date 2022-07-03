@@ -7,10 +7,9 @@ class Calculator {
     }
 
     private fun extractNumbers(input: String): List<String> {
-        return if (input.startsWith(CUSTOM_DELIMITER_START_SIGN)) {
-            extractCustomCase(input)
-        } else {
-            extractDefaultCase(input)
+        return when (input.startsWith(CUSTOM_DELIMITER_START_SIGN)) {
+            true -> extractCustomCase(input)
+            false -> extractDefaultCase(input)
         }
     }
 
