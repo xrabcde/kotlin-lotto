@@ -2,7 +2,8 @@ package calculator
 
 class Calculator {
     fun calculate(input: String): Int {
-        val numbers = extractNumbers(input)
+        val extractedNumbers = extractNumbers(input)
+        val numbers = extractedNumbers.map { convertNumber(it) }
         return doAddition(numbers)
     }
 
@@ -23,11 +24,20 @@ class Calculator {
         return input.split(DEFAULT_DELIMITERS).map { it.trim() }
     }
 
-    private fun doAddition(numbers: List<String>): Int {
-        try {
-            return numbers.sumOf { it.toInt() }
-        } catch (e: NumberFormatException) {
-            throw RuntimeException("숫자 이외의 값 또는 음수는 입력하실 수 없습니다.")
+    private fun convertNumber(input: String): Int {
+        return runCatching { input.toInt() }
+            .onFailure { throw RuntimeException("숫자 이외의 값은 입력하실 수 없습니다.") }
+            .getOrThrow()
+    }
+
+    private fun doAddition(numbers: List<Int>): Int {
+        validateNegativeNumber(numbers)
+        return numbers.sumOf { it }
+    }
+
+    private fun validateNegativeNumber(inputs: List<Int>) {
+        if (inputs.any { it < 0 }) {
+            throw RuntimeException("음수는 입력하실 수 없습니다.")
         }
     }
 
