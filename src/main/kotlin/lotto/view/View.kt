@@ -19,12 +19,13 @@ class View {
         return readln().split(",").map { it.trim().toInt() }
     }
 
-    fun printResult(results: List<Int>) {
+    fun printResult(results: List<Int>, ratio: Double) {
         println("\n당첨 통계")
         println("----------")
         println("3개 일치 (5,000원)- ${results[0]}개")
         println("4개 일치 (50,000원)- ${results[1]}개")
         println("5개 일치 (1,500,000원)- ${results[2]}개")
         println("6개 일치 (2,000,000,000원)- ${results[3]}개")
+        println("총 수익률은 ${ratio}입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)")
     }
 }
