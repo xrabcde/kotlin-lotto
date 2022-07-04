@@ -6,11 +6,21 @@ class LottoMachine {
     val view = View()
     var money = 0
     var count = 0
+    val lottoNumbers = mutableListOf<Int>()
+    val lottos = mutableListOf<List<Int>>()
+
+    init {
+        for (i in 1..45) {
+            lottoNumbers.add(i)
+        }
+    }
 
     fun operate() {
         money = validateMoney(view.inputMoney())
         count = money / LOTTO_PRICE
         view.printLottoCount(count)
+
+        generateLottos()
     }
 
     fun validateMoney(input: String): Int {
@@ -32,7 +42,15 @@ class LottoMachine {
         }
     }
 
+    private fun generateLottos() {
+        repeat(count) {
+            val lotto = lottoNumbers.shuffled().subList(0, LOTTO_DIGIT).sorted()
+            lottos.add(lotto)
+        }
+    }
+
     companion object {
         private const val LOTTO_PRICE = 1000
+        private const val LOTTO_DIGIT = 6
     }
 }
