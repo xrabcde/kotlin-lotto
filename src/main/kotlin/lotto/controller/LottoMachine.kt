@@ -8,6 +8,7 @@ class LottoMachine {
     var count = 0
     val lottoNumbers = mutableListOf<Int>()
     val lottos = mutableListOf<List<Int>>()
+    lateinit var winningLotto: List<Int>
 
     init {
         for (i in 1..45) {
@@ -22,6 +23,8 @@ class LottoMachine {
 
         generateLottos()
         view.printLottos(lottos)
+
+        winningLotto = view.inputWinningLotto()
     }
 
     fun validateMoney(input: String): Int {
