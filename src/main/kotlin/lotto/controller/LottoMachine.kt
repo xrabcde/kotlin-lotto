@@ -1,6 +1,7 @@
 package lotto.controller
 
 import lotto.view.View
+import kotlin.math.floor
 
 class LottoMachine {
     val view = View()
@@ -26,7 +27,10 @@ class LottoMachine {
 
         winningLotto = view.inputWinningLotto()
 
-        view.printResult(calculateResults().reversed())
+        val result = calculateResults().reversed()
+        view.printResult(result)
+
+        calculateRatio(result)
     }
 
     fun validateMoney(input: String): Int {
@@ -76,6 +80,11 @@ class LottoMachine {
     private fun getWinningCount(lotto: List<Int>): Int {
         val winningNumbers = (lotto + winningLotto).groupBy { it }.filter { it.value.size > 1 }.flatMap { it.value }.distinct()
         return winningNumbers.size
+    }
+
+    private fun calculateRatio(result: List<Int>): Double {
+        val winnings = 5_000 * result[0] + 50_000 * result[1] + 1_500_000 * result[2] + 2_000_000_000 * result[3]
+        return floor((winnings.toDouble() / money.toDouble())*100) /100
     }
 
     companion object {
