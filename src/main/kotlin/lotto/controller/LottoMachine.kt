@@ -26,7 +26,7 @@ class LottoMachine {
 
         winningLotto = view.inputWinningLotto()
 
-        calculateResults()
+        view.printResult(calculateResults().reversed())
     }
 
     fun validateMoney(input: String): Int {
