@@ -9,4 +9,8 @@ class View {
     fun printLottoCount(count: Int) {
         println("${count}개를 구매했습니다.")
     }
+
+    fun printLottos(lottos: List<List<Int>>) {
+        lottos.forEach { println(it) }
+    }
 }

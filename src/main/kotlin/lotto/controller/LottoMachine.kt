@@ -21,6 +21,7 @@ class LottoMachine {
         view.printLottoCount(count)
 
         generateLottos()
+        view.printLottos(lottos)
     }
 
     fun validateMoney(input: String): Int {
