@@ -5,4 +5,8 @@ class View {
         println("구매금액을 입력해 주세요.")
         return readln()
     }
+
+    fun printLottoCount(count: Int) {
+        println("${count}개를 구매했습니다.")
+    }
 }
