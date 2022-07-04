@@ -25,6 +25,8 @@ class LottoMachine {
         view.printLottos(lottos)
 
         winningLotto = view.inputWinningLotto()
+
+        calculateResults()
     }
 
     fun validateMoney(input: String): Int {
@@ -51,6 +53,29 @@ class LottoMachine {
             val lotto = lottoNumbers.shuffled().subList(0, LOTTO_DIGIT).sorted()
             lottos.add(lotto)
         }
+    }
+
+    private fun calculateResults(): List<Int> {
+        var first = 0
+        var second = 0
+        var third = 0
+        var fourth = 0
+
+        lottos.forEach {
+            when (getWinningCount(it)) {
+                6 -> {first++}
+                5 -> {second++}
+                4 -> {third++}
+                3 -> {fourth++}
+            }
+        }
+
+        return listOf(first, second, third, fourth)
+    }
+
+    private fun getWinningCount(lotto: List<Int>): Int {
+        val winningNumbers = (lotto + winningLotto).groupBy { it }.filter { it.value.size > 1 }.flatMap { it.value }.distinct()
+        return winningNumbers.size
     }
 
     companion object {
