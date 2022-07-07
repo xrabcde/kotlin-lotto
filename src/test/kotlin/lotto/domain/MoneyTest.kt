@@ -12,6 +12,7 @@ private const val NON_POSITIVE_MESSAGE = "구매금액을 양수로 입력해주
 class MoneyTest : FreeSpec({
     "구매금액을 숫자로 입력하지 않으면 예외를 반환한다." {
         val testCases = listOf("bada", "바다", ">0<")
+
         testCases.forAll {
             shouldThrowWithMessage<IllegalArgumentException>(NON_INTEGER_MESSAGE) { Money(it) }
         }
@@ -19,6 +20,7 @@ class MoneyTest : FreeSpec({
 
     "구매금액을 양수로 입력하지 않으면 예외를 반환한다." {
         val testCases = listOf("-1000", "-291837918", "0")
+
         testCases.forAll {
             shouldThrowWithMessage<IllegalArgumentException>(NON_POSITIVE_MESSAGE) { Money(it) }
         }
@@ -31,6 +33,7 @@ class MoneyTest : FreeSpec({
             row("5500", 5),
             row("14000", 14)
         )
+
         testCases.forEach { (price, count) ->
             Money(price).getLottoCount() shouldBe count
         }

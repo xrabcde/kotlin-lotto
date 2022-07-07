@@ -15,6 +15,7 @@ class RankTest : FreeSpec({
             row(1, Rank.NONE),
             row(0, Rank.NONE)
         )
+
         testCases.forEach { (count, rank) ->
             Rank.findByCount(count) shouldBe rank
         }
