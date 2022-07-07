@@ -1,5 +1,8 @@
 package lotto.view
 
+import lotto.domain.Lottos
+import lotto.domain.Rank
+
 class View {
     fun inputMoney(): String {
         println("구매금액을 입력해 주세요.")
@@ -10,22 +13,24 @@ class View {
         println("${count}개를 구매했습니다.")
     }
 
-    fun printLottos(lottos: List<List<Int>>) {
-        lottos.forEach { println(it) }
+    fun printLottos(lottos: Lottos) {
+        lottos.values.forEach { println(it.numbers) }
     }
 
-    fun inputWinningLotto(): List<Int> {
+    fun inputWinningLotto(): List<String> {
         println("\n지난 주 당첨 번호를 입력해 주세요.")
-        return readln().split(",").map { it.trim().toInt() }
+        return readln().split(",").map { it.trim() }
     }
 
-    fun printResult(results: List<Int>, ratio: Double) {
+    fun printResult(results: Map<Rank, Int>) {
         println("\n당첨 통계")
         println("----------")
-        println("3개 일치 (5,000원)- ${results[0]}개")
-        println("4개 일치 (50,000원)- ${results[1]}개")
-        println("5개 일치 (1,500,000원)- ${results[2]}개")
-        println("6개 일치 (2,000,000,000원)- ${results[3]}개")
-        println("총 수익률은 ${ratio}입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)")
+        Rank.values().reversed().forEach {
+            if (it.count >= 3) println("${it.count}개 일치 (${it.price}원)- ${results[it]}개")
+        }
+    }
+
+    fun printEarning(earning: Double) {
+        println("총 수익률은 ${earning}입니다.")
     }
 }
