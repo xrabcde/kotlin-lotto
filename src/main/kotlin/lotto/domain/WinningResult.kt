@@ -17,7 +17,7 @@ class WinningResult(lottos: Lottos, winningLotto: Lotto) {
         result.forEach {
             winnings += it.key.price * it.value
         }
-        return floor((winnings.toDouble() / money.price.toDouble())*100) /100
+        return floor((winnings.toDouble() / money.price.toDouble()) * 100) / 100
     }
 
     private fun calculateRank(lottos: Lottos, winningLotto: Lotto) {
@@ -28,7 +28,8 @@ class WinningResult(lottos: Lottos, winningLotto: Lotto) {
     }
 
     private fun getWinningCount(lotto: List<Int>, winningLotto: List<Int>): Rank {
-        val winningNumbers = (lotto + winningLotto).groupBy { it }.filter { it.value.size > 1 }.flatMap { it.value }.distinct()
+        val winningNumbers =
+            (lotto + winningLotto).groupBy { it }.filter { it.value.size > 1 }.flatMap { it.value }.distinct()
         return Rank.findByCount(winningNumbers.size)
     }
 }
