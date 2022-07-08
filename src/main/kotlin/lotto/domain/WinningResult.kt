@@ -13,11 +13,8 @@ class WinningResult(lottos: Lottos, winningLotto: Lotto) {
     }
 
     fun calculateEarning(money: Money): Double {
-        var winnings = 0
-        result.forEach {
-            winnings += it.key.price * it.value
-        }
-        return floor((winnings.toDouble() / money.price.toDouble()) * 100) / 100
+        val totalWinning = result.map { it.key.calculateWinning(it.value) }.sum()
+        return floor((totalWinning.toDouble() / money.price.toDouble()) * 100) / 100
     }
 
     private fun calculateRank(lottos: Lottos, winningLotto: Lotto) {

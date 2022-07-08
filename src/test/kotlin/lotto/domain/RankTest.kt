@@ -20,4 +20,18 @@ class RankTest : FreeSpec({
             Rank.findByCount(count) shouldBe rank
         }
     }
+
+    "당첨개수에 대한 당첨금을 계산한다." {
+        val testCases = listOf(
+            row(Rank.FIRST, 4_000_000_000),
+            row(Rank.SECOND, 3_000_000),
+            row(Rank.THIRD, 100_000),
+            row(Rank.FOURTH, 10_000),
+            row(Rank.NONE, 0)
+        )
+
+        testCases.forEach { (rank, winnings) ->
+            rank.calculateWinning(2) shouldBe winnings
+        }
+    }
 })
