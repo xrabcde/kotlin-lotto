@@ -6,11 +6,6 @@ import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 
-private const val NON_INTEGER_MESSAGE = "로또번호를 숫자로 입력해주세요."
-private const val DUPLICATE_NUMBER_MESSAGE = "로또번호를 중복되지 않게 입력해주세요."
-private const val INVALID_DIGIT_MESSAGE = "로또번호를 6자리로 입력해주세요."
-private const val INVALID_RANGE_MESSAGE = "로또번호를 1 ~ 45 사이로 입력해주세요."
-
 class LottoTest : FreeSpec({
     "생성자에 아무것도 넘겨주지 않으면 랜덤(자동)로또를 생성한다." {
         val lotto = Lotto()
@@ -70,4 +65,11 @@ class LottoTest : FreeSpec({
             shouldThrowWithMessage<IllegalArgumentException>(INVALID_RANGE_MESSAGE) { Lotto(it) }
         }
     }
-})
+}) {
+    companion object {
+        private const val NON_INTEGER_MESSAGE = "로또번호를 숫자로 입력해주세요."
+        private const val DUPLICATE_NUMBER_MESSAGE = "로또번호를 중복되지 않게 입력해주세요."
+        private const val INVALID_DIGIT_MESSAGE = "로또번호를 6자리로 입력해주세요."
+        private const val INVALID_RANGE_MESSAGE = "로또번호를 1 ~ 45 사이로 입력해주세요."
+    }
+}

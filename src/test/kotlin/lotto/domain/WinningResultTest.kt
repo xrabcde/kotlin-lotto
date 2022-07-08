@@ -4,9 +4,6 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe
 
-private val lottos = Lottos(0)
-private val winningLotto = Lotto(listOf("1", "2", "3", "4", "5", "6"))
-
 class WinningResultTest : FreeSpec({
     beforeSpec {
         val lotto = Lotto(listOf("1", "2", "3", "7", "8", "9"))
@@ -32,4 +29,9 @@ class WinningResultTest : FreeSpec({
             winningResult.calculateEarning(money) shouldBe earning
         }
     }
-})
+}) {
+    companion object {
+        private val lottos = Lottos(0)
+        private val winningLotto = Lotto(listOf("1", "2", "3", "4", "5", "6"))
+    }
+}

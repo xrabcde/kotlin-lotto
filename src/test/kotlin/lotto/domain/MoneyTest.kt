@@ -6,9 +6,6 @@ import io.kotest.data.row
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
 
-private const val NON_INTEGER_MESSAGE = "구매금액을 숫자로 입력해주세요."
-private const val NON_POSITIVE_MESSAGE = "구매금액을 양수로 입력해주세요."
-
 class MoneyTest : FreeSpec({
     "구매금액을 숫자로 입력하지 않으면 예외를 반환한다." {
         val testCases = listOf("bada", "바다", ">0<")
@@ -38,4 +35,9 @@ class MoneyTest : FreeSpec({
             Money(price).getLottoCount() shouldBe count
         }
     }
-})
+}) {
+    companion object {
+        private const val NON_INTEGER_MESSAGE = "구매금액을 숫자로 입력해주세요."
+        private const val NON_POSITIVE_MESSAGE = "구매금액을 양수로 입력해주세요."
+    }
+}
