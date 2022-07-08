@@ -8,15 +8,8 @@ class Lotto() {
     }
 
     constructor(input: List<String>) : this() {
-        numbers = validateNumbers(input)
-    }
-
-    private fun validateNumbers(input: List<String>): List<Int> {
-        val numbers = convertNumbers(input)
-        validateDuplicate(numbers)
-        validateSize(numbers)
-        validateRange(numbers)
-        return numbers
+        numbers = convertNumbers(input)
+        validateNumbers()
     }
 
     private fun convertNumbers(input: List<String>): List<Int> {
@@ -27,20 +20,26 @@ class Lotto() {
         }.getOrThrow()
     }
 
-    private fun validateDuplicate(input: List<Int>) {
-        if (input.size != input.toSet().toList().size) {
+    private fun validateNumbers() {
+        validateDuplicate()
+        validateSize()
+        validateRange()
+    }
+
+    private fun validateDuplicate() {
+        if (numbers.size != numbers.toSet().size) {
             throw IllegalArgumentException("로또번호를 중복되지 않게 입력해주세요.")
         }
     }
 
-    private fun validateSize(input: List<Int>) {
-        if (input.size != LOTTO_DIGIT) {
+    private fun validateSize() {
+        if (numbers.size != LOTTO_DIGIT) {
             throw IllegalArgumentException("로또번호를 6자리로 입력해주세요.")
         }
     }
 
-    private fun validateRange(input: List<Int>) {
-        input.forEach {
+    private fun validateRange() {
+        numbers.forEach {
             require(it in LOTTO_NUMBER_RANGE) { "로또번호를 1 ~ 45 사이로 입력해주세요." }
         }
     }
