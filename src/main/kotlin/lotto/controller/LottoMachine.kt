@@ -8,7 +8,7 @@ class LottoMachine {
 
     fun operate() {
         val money = Money(view.inputMoney())
-        val count = money.getLottoCount()
+        val count = money.divideBy(LOTTO_PRICE)
         view.printLottoCount(count)
 
         val lottos = Lottos(count)
@@ -20,5 +20,9 @@ class LottoMachine {
         view.printResult(winningResult.result)
         val earning = winningResult.calculateEarning(money)
         view.printEarning(earning)
+    }
+
+    companion object {
+        private const val LOTTO_PRICE = 1000
     }
 }

@@ -8,8 +8,8 @@ class Money(input: String) {
         require(price > 0) { "구매금액을 양수로 입력해주세요." }
     }
 
-    fun getLottoCount(): Int {
-        return price / LOTTO_PRICE
+    fun divideBy(unit: Int): Int {
+        return price / unit
     }
 
     private fun convertNumber(input: String): Int {
@@ -18,9 +18,5 @@ class Money(input: String) {
         }.onFailure {
             throw IllegalArgumentException("구매금액을 숫자로 입력해주세요.")
         }.getOrThrow()
-    }
-
-    companion object {
-        private const val LOTTO_PRICE = 1000
     }
 }

@@ -32,7 +32,7 @@ class MoneyTest : FreeSpec({
         )
 
         testCases.forEach { (price, count) ->
-            Money(price).getLottoCount() shouldBe count
+            Money(price).divideBy(1000) shouldBe count
         }
     }
 }) {
