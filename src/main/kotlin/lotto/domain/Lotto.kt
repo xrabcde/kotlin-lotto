@@ -1,15 +1,10 @@
 package lotto.domain
 
-class Lotto() {
+class Lotto(_numbers: List<Int>? = generateLotto()) {
     val numbers: Set<Int>
 
     init {
-        numbers = generateLotto()
-    }
-
-    constructor(input: List<String>) : this() {
-        numbers = convertNumbers(input)
-        validateNumbers()
+        numbers = convertAfterValidate(_numbers!!)
     }
 
     private fun convertAfterValidate(numbers: List<Int>): Set<Int> {
@@ -18,19 +13,13 @@ class Lotto() {
         return convertToSet(numbers)
     }
 
-    private fun validateDuplicate() {
-        if (numbers.size != numbers.toSet().size) {
-            throw IllegalArgumentException("로또번호를 중복되지 않게 입력해주세요.")
-        }
-    }
-
-    private fun validateSize() {
+    private fun validateSize(numbers: List<Int>) {
         if (numbers.size != LOTTO_DIGIT) {
             throw IllegalArgumentException("로또번호를 6자리로 입력해주세요.")
         }
     }
 
-    private fun validateRange() {
+    private fun validateRange(numbers: List<Int>) {
         numbers.forEach {
             require(it in LOTTO_NUMBER_RANGE) { "로또번호를 1 ~ 45 사이로 입력해주세요." }
         }
@@ -48,7 +37,7 @@ class Lotto() {
         private val LOTTO_NUMBER_RANGE: IntRange = (1..45)
         private val CACHE_LOTTO_NUMBERS: List<Int> = List(45) { it + 1 }
 
-        fun generateLotto(): List<Int> {
+        private fun generateLotto(): List<Int> {
             return CACHE_LOTTO_NUMBERS.shuffled().subList(0, 6).sorted()
         }
     }
