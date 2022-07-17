@@ -1,7 +1,7 @@
 package lotto.domain
 
 class Lotto() {
-    var numbers: List<Int>
+    val numbers: Set<Int>
 
     init {
         numbers = generateLotto()
@@ -34,6 +34,13 @@ class Lotto() {
         numbers.forEach {
             require(it in LOTTO_NUMBER_RANGE) { "로또번호를 1 ~ 45 사이로 입력해주세요." }
         }
+    }
+
+    private fun convertToSet(numbers: List<Int>): Set<Int> {
+        if (numbers.size != numbers.toSet().size) {
+            throw IllegalArgumentException("로또번호를 중복되지 않게 입력해주세요.")
+        }
+        return numbers.toSet()
     }
 
     companion object {
