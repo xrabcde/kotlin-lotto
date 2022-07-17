@@ -12,18 +12,10 @@ class Lotto() {
         validateNumbers()
     }
 
-    private fun convertNumbers(input: List<String>): List<Int> {
-        return runCatching {
-            input.map { it.toInt() }.toList()
-        }.onFailure {
-            throw IllegalArgumentException("로또번호를 숫자로 입력해주세요.")
-        }.getOrThrow()
-    }
-
-    private fun validateNumbers() {
-        validateDuplicate()
-        validateSize()
-        validateRange()
+    private fun convertAfterValidate(numbers: List<Int>): Set<Int> {
+        validateSize(numbers)
+        validateRange(numbers)
+        return convertToSet(numbers)
     }
 
     private fun validateDuplicate() {

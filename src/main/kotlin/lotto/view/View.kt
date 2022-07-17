@@ -17,9 +17,10 @@ class View {
         lottos.values.forEach { println(it.numbers) }
     }
 
-    fun inputWinningLotto(): List<String> {
+    fun inputWinningLotto(): List<Int> {
         println("\n지난 주 당첨 번호를 입력해 주세요.")
-        return readln().split(",").map { it.trim() }
+        val input = readln().split(",").map { it.trim() }
+        return convertNumbers(input)
     }
 
     fun printResult(results: Map<Rank, Int>) {
@@ -32,5 +33,13 @@ class View {
 
     fun printEarning(earning: Double) {
         println("총 수익률은 ${earning}입니다.")
+    }
+
+    private fun convertNumbers(input: List<String>): List<Int> {
+        return runCatching {
+            input.map { it.toInt() }.toList()
+        }.onFailure {
+            throw IllegalArgumentException("로또번호를 숫자로 입력해주세요.")
+        }.getOrThrow()
     }
 }
