@@ -20,9 +20,9 @@ class WinningResultTest : FreeSpec({
         val winningResult = WinningResult(lottos, winningLotto)
 
         val testCases = listOf(
-            row(Money("1000"), 5),
-            row(Money("5000"), 1),
-            row(Money("10000"), 0.5)
+            row(Money(1000), 5),
+            row(Money(5000), 1),
+            row(Money(10000), 0.5)
         )
 
         testCases.forEach { (money, earning) ->

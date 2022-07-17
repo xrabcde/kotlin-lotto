@@ -4,9 +4,9 @@ import lotto.domain.Lottos
 import lotto.domain.Rank
 
 class View {
-    fun inputMoney(): String {
+    fun inputMoney(): Int {
         println("구매금액을 입력해 주세요.")
-        return readln()
+        return convertNumber(readln())
     }
 
     fun printLottoCount(count: Int) {
@@ -20,7 +20,7 @@ class View {
     fun inputWinningLotto(): List<Int> {
         println("\n지난 주 당첨 번호를 입력해 주세요.")
         val input = readln().split(",").map { it.trim() }
-        return convertNumbers(input)
+        return input.map { convertNumber(it) }.toList()
     }
 
     fun printResult(results: Map<Rank, Int>) {
@@ -35,11 +35,11 @@ class View {
         println("총 수익률은 ${earning}입니다.")
     }
 
-    private fun convertNumbers(input: List<String>): List<Int> {
+    private fun convertNumber(input: String): Int {
         return runCatching {
-            input.map { it.toInt() }.toList()
+            input.toInt()
         }.onFailure {
-            throw IllegalArgumentException("로또번호를 숫자로 입력해주세요.")
+            throw IllegalArgumentException("숫자로 입력해주세요.")
         }.getOrThrow()
     }
 }
