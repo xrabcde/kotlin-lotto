@@ -14,7 +14,7 @@ class LottoMachine {
         val lottos = Lottos(count)
         view.printLottos(lottos)
 
-        val winningLotto = Lotto(view.inputWinningLotto())
+        val winningLotto = Lotto.manual(view.inputWinningLotto())
 
         val winningResult = WinningResult(lottos, winningLotto)
         view.printResult(winningResult.result)

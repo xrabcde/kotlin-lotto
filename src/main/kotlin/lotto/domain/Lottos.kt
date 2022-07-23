@@ -5,7 +5,7 @@ class Lottos(count: Int) {
 
     init {
         repeat(count) {
-            values.add(Lotto())
+            values.add(Lotto.auto())
         }
     }
 

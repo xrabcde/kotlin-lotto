@@ -6,7 +6,7 @@ import io.kotest.matchers.shouldBe
 
 class WinningResultTest : FreeSpec({
     beforeSpec {
-        val lotto = Lotto(listOf(1, 2, 3, 7, 8, 9))
+        val lotto = Lotto.manual(listOf(1, 2, 3, 7, 8, 9))
         lottos.addManualLotto(lotto)
     }
 
@@ -32,6 +32,6 @@ class WinningResultTest : FreeSpec({
 }) {
     companion object {
         private val lottos = Lottos(0)
-        private val winningLotto = Lotto(listOf(1, 2, 3, 4, 5, 6))
+        private val winningLotto = Lotto.manual(listOf(1, 2, 3, 4, 5, 6))
     }
 }
