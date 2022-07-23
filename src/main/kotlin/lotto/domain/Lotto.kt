@@ -1,28 +1,11 @@
 package lotto.domain
 
-class Lotto(_numbers: List<Int>? = generateLotto()) {
+class Lotto(numbers: List<Int> = generateLotto()) {
     val numbers: Set<Int>
 
     init {
-        numbers = convertAfterValidate(_numbers!!)
-    }
-
-    private fun convertAfterValidate(numbers: List<Int>): Set<Int> {
-        validateSize(numbers)
-        validateRange(numbers)
-        return convertToSet(numbers)
-    }
-
-    private fun validateSize(numbers: List<Int>) {
-        if (numbers.size != LOTTO_DIGIT) {
-            throw IllegalArgumentException("로또번호를 6자리로 입력해주세요.")
-        }
-    }
-
-    private fun validateRange(numbers: List<Int>) {
-        numbers.forEach {
-            require(it in LOTTO_NUMBER_RANGE) { "로또번호를 1 ~ 45 사이로 입력해주세요." }
-        }
+        this.numbers = convertToSet(numbers)
+        validateNumbers(this.numbers)
     }
 
     private fun convertToSet(numbers: List<Int>): Set<Int> {
@@ -32,13 +15,30 @@ class Lotto(_numbers: List<Int>? = generateLotto()) {
         return numbers.toSet()
     }
 
+    private fun validateNumbers(numbers: Set<Int>) {
+        validateSize(numbers)
+        validateRange(numbers)
+    }
+
+    private fun validateSize(numbers: Set<Int>) {
+        if (numbers.size != LOTTO_DIGIT) {
+            throw IllegalArgumentException("로또번호를 6자리로 입력해주세요.")
+        }
+    }
+
+    private fun validateRange(numbers: Set<Int>) {
+        numbers.forEach {
+            require(it in LOTTO_NUMBER_RANGE) { "로또번호를 1 ~ 45 사이로 입력해주세요." }
+        }
+    }
+
     companion object {
         private const val LOTTO_DIGIT = 6
         private val LOTTO_NUMBER_RANGE: IntRange = (1..45)
         private val CACHE_LOTTO_NUMBERS: List<Int> = List(45) { it + 1 }
 
         private fun generateLotto(): List<Int> {
-            return CACHE_LOTTO_NUMBERS.shuffled().subList(0, 6).sorted()
+            return CACHE_LOTTO_NUMBERS.shuffled().subList(0, LOTTO_DIGIT).sorted()
         }
     }
 }
