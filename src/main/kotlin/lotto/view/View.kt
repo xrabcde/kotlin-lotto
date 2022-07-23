@@ -4,9 +4,9 @@ import lotto.domain.Lottos
 import lotto.domain.Rank
 
 class View {
-    fun inputMoney(): Int {
+    fun inputMoney(): Long {
         println("구매금액을 입력해 주세요.")
-        return convertNumber(readln())
+        return convertNumber(readln()).toLong()
     }
 
     fun printLottoCount(count: Int) {
@@ -27,7 +27,7 @@ class View {
         println("\n당첨 통계")
         println("----------")
         Rank.values().reversed().forEach {
-            if (it.count >= 3) println("${it.count}개 일치 (${it.price}원)- ${results[it]}개")
+            if (it.count >= 3) println("${it.count}개 일치 (${it.prize}원)- ${results[it]}개")
         }
     }
 

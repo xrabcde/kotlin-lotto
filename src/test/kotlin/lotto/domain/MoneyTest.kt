@@ -8,7 +8,7 @@ import io.kotest.matchers.shouldBe
 
 class MoneyTest : FreeSpec({
     "구매금액을 양수로 입력하지 않으면 예외를 반환한다." {
-        val testCases = listOf(-1000, -291837918, 0)
+        val testCases = listOf(-1000L, -291837918L)
 
         testCases.forAll {
             shouldThrowWithMessage<IllegalArgumentException>(NON_POSITIVE_MESSAGE) { Money(it) }
@@ -17,10 +17,10 @@ class MoneyTest : FreeSpec({
 
     "구매금액에 따른 로또의 개수를 반환한다." {
         val testCases = listOf(
-            row(1000, 1),
-            row(900, 0),
-            row(5500, 5),
-            row(14000, 14)
+            row(1000L, 1),
+            row(900L, 0),
+            row(5500L, 5),
+            row(14000L, 14)
         )
 
         testCases.forEach { (price, count) ->
