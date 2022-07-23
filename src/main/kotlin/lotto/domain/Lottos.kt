@@ -24,7 +24,7 @@ class Lottos private constructor(var values: List<Lotto>) {
     }
 
     companion object {
-        private const val LOTTO_PRICE = 1000
+        private val LOTTO_PRICE = Money(1000)
 
         fun buyWith(money: Money) = Lottos(generateLottos(money))
 

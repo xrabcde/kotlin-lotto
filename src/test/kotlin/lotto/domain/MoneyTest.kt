@@ -24,11 +24,13 @@ class MoneyTest : FreeSpec({
         )
 
         testCases.forEach { (price, count) ->
-            Money(price).divideBy(1000) shouldBe count
+            Money(price).divideBy(LOTTO_PRICE) shouldBe count
         }
     }
 }) {
     companion object {
         private const val NON_POSITIVE_MESSAGE = "구매금액을 양수로 입력해주세요."
+
+        private val LOTTO_PRICE = Money(1000)
     }
 }
