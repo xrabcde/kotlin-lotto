@@ -9,11 +9,8 @@ class View {
         return convertNumber(readln()).toLong()
     }
 
-    fun printLottoCount(count: Int) {
-        println("${count}개를 구매했습니다.")
-    }
-
     fun printLottos(lottos: Lottos) {
+        println("${lottos.values.size}개를 구매했습니다.")
         lottos.values.forEach { println(it.numbers) }
     }
 
@@ -27,7 +24,7 @@ class View {
         println("\n당첨 통계")
         println("----------")
         Rank.values().reversed().forEach {
-            if (it.count >= 3) println("${it.count}개 일치 (${it.prize}원)- ${results[it]}개")
+            if (it.count >= 3) println("${it.count}개 일치 (${it.prize.price}원)- ${results[it]}개")
         }
     }
 
