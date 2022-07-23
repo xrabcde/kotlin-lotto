@@ -18,6 +18,11 @@ class Lotto private constructor(val numbers: Set<Int>) {
         }
     }
 
+    fun howManyMatchesWith(other: Lotto): Int {
+        val nonMatchingValue = numbers.minus(other.numbers)
+        return LOTTO_DIGIT - nonMatchingValue.size
+    }
+
     companion object {
         private const val LOTTO_DIGIT = 6
         private val LOTTO_NUMBER_RANGE: IntRange = (1..45)

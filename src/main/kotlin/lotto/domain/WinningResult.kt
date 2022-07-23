@@ -19,17 +19,12 @@ class WinningResult(lottos: Lottos, winningLotto: Lotto) {
 
     private fun calculateRank(lottos: Lottos, winningLotto: Lotto) {
         lottos.values.forEach {
-            val rank = getWinningRank(it.numbers, winningLotto.numbers)
-            result[rank] = result[rank]!! + 1
+            val matchingCount = winningLotto.howManyMatchesWith(it)
+            val rank = Rank.findByCount(matchingCount)
+            when(val tmp = result[rank]) {
+                null -> result[rank] = 1
+                else -> result[rank] = tmp + 1
+            }
         }
-    }
-
-    private fun getWinningRank(lotto: Set<Int>, winningLotto: Set<Int>): Rank {
-        val winningCount = LOTTO_DIGIT - winningLotto.minus(lotto).size
-        return Rank.findByCount(winningCount)
-    }
-
-    companion object {
-        private const val LOTTO_DIGIT = 6
     }
 }
