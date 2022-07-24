@@ -5,18 +5,12 @@ import io.kotest.data.row
 import io.kotest.matchers.shouldBe
 
 class WinningResultTest : FreeSpec({
-    beforeSpec {
+    "수익률을 계산한다." {
+        val lottos = Lottos.buyWith(Money(0))
         val lotto = Lotto.manual(listOf(1, 2, 3, 7, 8, 9))
         lottos.addManualLotto(lotto)
-    }
 
-    "구입로또와 당첨로또를 비교해 당첨 통계를 계산한다." {
-        val winningResult = lottos.calculateResult(winningLotto)
-
-        winningResult.result.values shouldBe listOf(0, 0, 0, 1, 0)
-    }
-
-    "수익률을 계산한다." {
+        val winningLotto = Lotto.manual(listOf(1, 2, 3, 4, 5, 6))
         val winningResult = lottos.calculateResult(winningLotto)
 
         val testCases = listOf(
@@ -29,9 +23,4 @@ class WinningResultTest : FreeSpec({
             winningResult.calculateEarning(money) shouldBe earning
         }
     }
-}) {
-    companion object {
-        private val lottos = Lottos.buyWith(Money(0))
-        private val winningLotto = Lotto.manual(listOf(1, 2, 3, 4, 5, 6))
-    }
-}
+})
